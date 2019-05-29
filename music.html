@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+
+	<head class="center">
+    	<title>Music Program</title>
+    	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+			<link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
+	</head>
+
+	<body class="pa3 helvetica gray bg-washed-blue">
+		<div class="fl w-100">
+			<h1 class="f1"> Music Program </h1>
+		</div>
+		<input type="range" min="1" max="1000" value="440" class="slider" id="myRange">
+  	<p>Freq: <span id="demo"></span></p>
+		<a class="f6 link dim br3 ph3 pv2 mb2 dib white bg-mid-gray" href"#" onClick="sine()">sine</a>
+		<a class="f6 link dim br3 ph3 pv2 mb2 dib white bg-mid-gray" href"#" onClick="square()">square</a>
+		<a class="f6 link dim br3 ph3 pv2 mb2 dib white bg-mid-gray" href"#" onClick="triangle()">triangle</a>
+		<a class="f6 link dim br3 ph3 pv2 mb2 dib white bg-mid-gray" href"#" onClick="sawtooth()">sawtooth</a>
+
+
+	</body>
+
+	<style>
+	</style>
+
+</html>
+<script>
+	var slider = document.getElementById("myRange");
+	var output = document.getElementById("demo");
+	output.innerHTML = slider.value;
+
+	slider.oninput = function() {
+	  output.innerHTML = this.value;
+	}
+	var context = new (window.AudioContext || window.webkitAudioContext);
+	var osc = context.createOscillator();
+
+	function sine(){
+		osc.type = 'sine';
+		playSound();
+	}
+	function square(){
+		osc.type = 'square';
+		playSound();
+	}
+	function triangle(){
+		osc.type = 'triangle';
+		playSound();
+	}
+	function sawtooth(){
+		osc.type = 'sawtooth';
+		playSound();
+	}
+	function playSound() {
+		osc.frequency.value = slider.value;
+	  osc.connect(context.destination);
+	  osc.start();
+		osc.stop(.1);
+	}
+</script>
